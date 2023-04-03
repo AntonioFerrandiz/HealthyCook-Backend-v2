@@ -22,7 +22,7 @@ public class RecipeStepsRest {
     @RequestMapping(value = "getRecipeStepById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetRecipeStepsResource> getRecipeStepById(@PathVariable Integer id) throws Exception {
         GetRecipeStepsResource recipeStep = this.recipeStepsService.findById(id);
-        return new ResponseEntity<GetRecipeStepsResource>(recipeStep, HttpStatus.OK);
+        return new ResponseEntity<>(recipeStep, HttpStatus.OK);
     }
     @RequestMapping(value = "getRecipeStepByRecipeId/{recipeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<GetRecipeStepsResource>> getRecipeStepByRecipeId(@PathVariable Integer recipeId) throws Exception {
