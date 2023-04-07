@@ -31,11 +31,15 @@ public class RecipeRest {
     @RequestMapping(value = "findRecipeById/{recipeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetRecipeResource> findRecipeById(@PathVariable Integer recipeId) throws Exception{
         return ResponseEntity.ok(this.recipeService.findById(recipeId));
-
     }
 
     @RequestMapping(value = "findRecipesByIngredient/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<GetRecipeResource>> findRecipesByIngredient(@RequestBody List<String> ingredient) throws Exception{
         return ResponseEntity.ok(this.recipeService.findRecipesByIngredients(ingredient));
+    }
+
+    @RequestMapping(value = "getRecipesByDifficulty/{difficulty}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<GetRecipeResource>> getRecipesByDifficulty(@PathVariable String difficulty) throws Exception{
+        return ResponseEntity.ok(this.recipeService.findRecipesByDifficulty(difficulty));
     }
 }

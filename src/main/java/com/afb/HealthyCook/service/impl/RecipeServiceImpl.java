@@ -124,4 +124,10 @@ public class RecipeServiceImpl implements RecipeService {
         return GetRecipeResource.convert(recipeList);
     }
 
+    @Override
+    public List<GetRecipeResource> findRecipesByDifficulty(String difficulty) throws Exception {
+        List<Recipe> recipeList = this.recipeRepository.findRecipesByDifficulty(difficulty);
+        return GetRecipeResource.convert(recipeList);
+    }
+
 }

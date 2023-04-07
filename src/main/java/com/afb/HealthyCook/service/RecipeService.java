@@ -13,4 +13,6 @@ public interface RecipeService {
     GetRecipeResource findById(Integer id) throws Exception;
 
     List<GetRecipeResource> findRecipesByIngredients(List<String> ingredient) throws Exception;
+
+    List<GetRecipeResource> findRecipesByDifficulty(String difficulty) throws Exception;
 }
