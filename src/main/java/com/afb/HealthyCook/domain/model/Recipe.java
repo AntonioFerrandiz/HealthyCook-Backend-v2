@@ -20,8 +20,6 @@ public class Recipe {
     private Integer preparationTime;
     @Column(name = "diners")
     private Integer diners;
-    @Column(name = "difficulty")
-    private String difficulty = RecipeDifficulty.NONE;
 
 
 
@@ -37,6 +35,11 @@ public class Recipe {
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
     private User user;
+
+    // Difficulty
+    @OneToOne(targetEntity = RecipeDifficulty.class)
+    @JoinColumn(name = "difficulty_id")
+    private RecipeDifficulty recipeDifficulty;
 
     public Integer getId() {
         return id;
@@ -78,14 +81,6 @@ public class Recipe {
         this.diners = diners;
     }
 
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
     public List<Ingredients> getIngredientsList() {
         return ingredientsList;
     }
@@ -110,18 +105,26 @@ public class Recipe {
         this.user = user;
     }
 
+    public RecipeDifficulty getRecipeDifficulty() {
+        return recipeDifficulty;
+    }
+
+    public void setRecipeDifficulty(RecipeDifficulty recipeDifficulty) {
+        this.recipeDifficulty = recipeDifficulty;
+    }
+
     public Recipe() {
     }
 
-    public Recipe(Integer id, String recipeName, String recipeDescription, Integer preparationTime, Integer diners, String difficulty, List<Ingredients> ingredientsList, List<RecipeSteps> recipeStepsList, User user) {
+    public Recipe(Integer id, String recipeName, String recipeDescription, Integer preparationTime, Integer diners, List<Ingredients> ingredientsList, List<RecipeSteps> recipeStepsList, User user, RecipeDifficulty recipeDifficulty) {
         this.id = id;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.preparationTime = preparationTime;
         this.diners = diners;
-        this.difficulty = difficulty;
         this.ingredientsList = ingredientsList;
         this.recipeStepsList = recipeStepsList;
         this.user = user;
+        this.recipeDifficulty = recipeDifficulty;
     }
 }

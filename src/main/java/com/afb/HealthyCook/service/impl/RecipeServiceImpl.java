@@ -4,14 +4,8 @@ import com.afb.HealthyCook.domain.dto.Ingredients.CreateIngredientResource;
 import com.afb.HealthyCook.domain.dto.Recipe.CreateRecipeResource;
 import com.afb.HealthyCook.domain.dto.Recipe.GetRecipeResource;
 import com.afb.HealthyCook.domain.dto.RecipeSteps.CreateRecipeStepResource;
-import com.afb.HealthyCook.domain.model.Ingredients;
-import com.afb.HealthyCook.domain.model.Recipe;
-import com.afb.HealthyCook.domain.model.RecipeSteps;
-import com.afb.HealthyCook.domain.model.User;
-import com.afb.HealthyCook.domain.repository.IngredientsRepository;
-import com.afb.HealthyCook.domain.repository.RecipeRepository;
-import com.afb.HealthyCook.domain.repository.RecipeStepsRepository;
-import com.afb.HealthyCook.domain.repository.UsersRepository;
+import com.afb.HealthyCook.domain.model.*;
+import com.afb.HealthyCook.domain.repository.*;
 import com.afb.HealthyCook.service.RecipeService;
 import com.afb.HealthyCook.shared.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -35,6 +29,9 @@ public class RecipeServiceImpl implements RecipeService {
     private RecipeRepository recipeRepository;
 
     @Autowired
+    private RecipeDifficultyRepository recipeDifficultyRepository;
+
+    @Autowired
     private RecipeStepsRepository recipeStepsRepository;
 
     @Autowired
@@ -50,11 +47,16 @@ public class RecipeServiceImpl implements RecipeService {
             logger.error("No existe usuario con id: " + resource.getUserId());
         }
         User user = optionalUser.get();
+        Optional<RecipeDifficulty> optionalRecipeDifficulty = this.recipeDifficultyRepository.findById(resource.getDifficultyId());
+        if(optionalRecipeDifficulty.isEmpty()){
+            logger.error("No existe receta con id: " + resource.getUserId());
+        }
+        RecipeDifficulty recipeDifficulty = optionalRecipeDifficulty.get();
         logger.error("<AFB log='user'/> " + user.toString());
         Recipe recipe = new Recipe();
         recipe.setRecipeName(resource.getRecipeName());
         recipe.setRecipeDescription(resource.getRecipeDescription());
-        recipe.setDifficulty(resource.getDifficulty());
+        recipe.setRecipeDifficulty(recipeDifficulty);
         recipe.setDiners(resource.getDiners());
         recipe.setPreparationTime(resource.getPreparationTime());
         recipe.setUser(user);

@@ -108,7 +108,7 @@ public class GetRecipeResource {
         this.recipeDescription = recipe.getRecipeDescription();
         this.preparationTime = recipe.getPreparationTime();
         this.diners = recipe.getDiners();
-        this.difficulty = recipe.getDifficulty();
+        this.difficulty = recipe.getRecipeDifficulty().getDifficulty();
         this.userId = recipe.getUser().getId();
         this.ingredients = recipe.getIngredientsList();
         this.recipeSteps = recipe.getRecipeStepsList();

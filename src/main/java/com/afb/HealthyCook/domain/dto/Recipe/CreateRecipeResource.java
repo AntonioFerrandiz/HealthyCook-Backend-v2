@@ -13,12 +13,12 @@ public class CreateRecipeResource {
     private String recipeDescription;
     private Integer preparationTime;
     private Integer diners;
-    private String difficulty;
 
     private List<CreateRecipeStepResource> recipeStepsList;
     private List<CreateIngredientResource> ingredientsList;
 
     private Integer userId;
+    private Integer difficultyId;
 
     public String getRecipeName() {
         return recipeName;
@@ -52,12 +52,12 @@ public class CreateRecipeResource {
         this.diners = diners;
     }
 
-    public String getDifficulty() {
-        return difficulty;
+    public Integer getDifficultyId() {
+        return difficultyId;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
+    public void setDifficultyId(Integer difficultyId) {
+        this.difficultyId = difficultyId;
     }
 
     public List<CreateRecipeStepResource> getRecipeStepsList() {
