@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RecipeService {
-    Recipe saveRecipe(CreateRecipeResource resource) throws Exception;
+    CreateRecipeResource saveRecipe(CreateRecipeResource resource) throws Exception;
 
     GetRecipeResource findById(Integer id) throws Exception;
 

@@ -41,7 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
     private UsersRepository usersRepository;
 
     @Override
-    public Recipe saveRecipe(CreateRecipeResource resource) throws Exception {
+    public CreateRecipeResource saveRecipe(CreateRecipeResource resource) throws Exception {
         Optional<User> optionalUser = this.usersRepository.findById(resource.getUserId());
         if(optionalUser.isEmpty()){
             logger.error("No existe usuario con id: " + resource.getUserId());
@@ -94,7 +94,7 @@ public class RecipeServiceImpl implements RecipeService {
         this.recipeStepsRepository.saveAll(recipeStepsList);
         recipe.setIngredientsList(ingredientsList);
         recipe.setRecipeStepsList(recipeStepsList);
-        return recipe;
+        return resource;
     }
 
     @Override

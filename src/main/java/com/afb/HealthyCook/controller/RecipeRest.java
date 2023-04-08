@@ -24,7 +24,7 @@ public class RecipeRest {
     @RequestMapping(value = "createRecipe", method = RequestMethod.POST, produces =
             {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> createRecipe(@RequestBody CreateRecipeResource createRecipeResource) throws Exception {
-        Recipe recipe = this.recipeService.saveRecipe(createRecipeResource);
+        CreateRecipeResource recipe = this.recipeService.saveRecipe(createRecipeResource);
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 
