@@ -11,13 +11,12 @@ import com.afb.HealthyCook.shared.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +35,10 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Autowired
     private IngredientsRepository ingredientsRepository;
+
+    @Autowired
+    private ExcludedIngredientRepository excludedIngredientRepository;
+
 
     @Autowired
     private UsersRepository usersRepository;
@@ -115,17 +118,28 @@ public class RecipeServiceImpl implements RecipeService {
             recipesIdAux.add(ids);
         }
 
-
         List<Integer> recipesId = recipesIdAux.stream().flatMap(List::stream).distinct().collect(Collectors.toList());
-        logger.error("<AFB log='recipesId'/> " + recipesId);
         if(recipesId.isEmpty()){
             throw new ResourceNotFoundException("No existen recetas con los ingredientes indicados");
         }
-        logger.error("<AFB log='recipesId size'/> " + recipesId.size());
         List<Recipe> recipeList = this.recipeRepository.findRecipesByIngredients(recipesId);
+        List<ExcludedIngredients> excludedIngredientsList = this.excludedIngredientRepository.findByUserId(1);
+        if (!excludedIngredientsList.isEmpty()) {
+            List<Recipe> recipesWithoutExcludes = recipeList.stream()
+                    .filter(recipe -> excludedIngredientsList.stream()
+                            .noneMatch(excludedIngredient -> containExcludedIngredient(excludedIngredient, recipe)))
+                    .collect(Collectors.toList());
+            return GetRecipeResource.convert(recipesWithoutExcludes);
+        }
         return GetRecipeResource.convert(recipeList);
     }
-
+    public boolean containExcludedIngredient(ExcludedIngredients excludedIngredient, Recipe recipe) {
+        String excludedIngredientName = excludedIngredient.getExcludedIngredient();
+        Pattern pattern = Pattern.compile("\\b" + excludedIngredientName + "\\b", Pattern.CASE_INSENSITIVE);
+        return recipe.getIngredientsList().stream()
+                .map(Ingredients::getIngredient)
+                .anyMatch(ingredientName -> pattern.matcher(ingredientName).find());
+    }
     @Override
     public List<GetRecipeResource> findRecipesByDifficulty(String difficulty) throws Exception {
         List<Recipe> recipeList = this.recipeRepository.findRecipesByDifficulty(difficulty);
