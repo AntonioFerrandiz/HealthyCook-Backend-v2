@@ -127,4 +127,19 @@ public class Recipe {
         this.user = user;
         this.recipeDifficulty = recipeDifficulty;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", recipeName='" + recipeName + '\'' +
+                ", recipeDescription='" + recipeDescription + '\'' +
+                ", preparationTime=" + preparationTime +
+                ", diners=" + diners +
+                ", ingredientsList=" + ingredientsList +
+                ", recipeStepsList=" + recipeStepsList +
+                ", user=" + user +
+                ", recipeDifficulty=" + recipeDifficulty +
+                '}';
+    }
 }
