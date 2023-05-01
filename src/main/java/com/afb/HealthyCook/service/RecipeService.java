@@ -2,10 +2,9 @@ package com.afb.HealthyCook.service;
 
 import com.afb.HealthyCook.domain.dto.Recipe.CreateRecipeResource;
 import com.afb.HealthyCook.domain.dto.Recipe.GetRecipeResource;
-import com.afb.HealthyCook.domain.model.Recipe;
+import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RecipeService {
     CreateRecipeResource saveRecipe(CreateRecipeResource resource) throws Exception;

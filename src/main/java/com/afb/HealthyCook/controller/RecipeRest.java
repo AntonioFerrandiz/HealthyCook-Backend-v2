@@ -2,8 +2,8 @@ package com.afb.HealthyCook.controller;
 
 import com.afb.HealthyCook.domain.dto.Recipe.CreateRecipeResource;
 import com.afb.HealthyCook.domain.dto.Recipe.GetRecipeResource;
-import com.afb.HealthyCook.domain.model.Recipe;
 import com.afb.HealthyCook.service.RecipeService;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +42,5 @@ public class RecipeRest {
     public ResponseEntity<List<GetRecipeResource>> getRecipesByDifficulty(@PathVariable String difficulty) throws Exception{
         return ResponseEntity.ok(this.recipeService.findRecipesByDifficulty(difficulty));
     }
+
 }
