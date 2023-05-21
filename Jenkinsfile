@@ -9,13 +9,13 @@ pipeline {
 
     stage('Build with Maven') {
       steps {
-        sh 'mvn clean package -Dmaven.test.skip'
+        bat 'mvn clean package -Dmaven.test.skip'
       }
     }
 
     stage('Post Build Steps') {
       steps {
-        writeFile(file: 'status.txt', text: '¿?')
+        writeFile(file: 'status.txt', text: 'Â¿?')
       }
     }
 
