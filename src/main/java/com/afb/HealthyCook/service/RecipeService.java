@@ -3,7 +3,6 @@ package com.afb.HealthyCook.service;
 import com.afb.HealthyCook.domain.dto.Recipe.CreateRecipeResource;
 import com.afb.HealthyCook.domain.dto.Recipe.GetRecipeResource;
 import net.sf.jasperreports.engine.JRException;
-import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.util.List;
