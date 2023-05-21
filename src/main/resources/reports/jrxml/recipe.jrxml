@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ebad78d7-68af-4b7e-afb1-6378b28e22d2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="recipe_name" class="java.lang.String"/>
+	<field name="recipe_creator" class="java.lang.String"/>
+	<field name="recipe_description" class="java.lang.String"/>
+	<field name="recipe_preparation_time" class="java.lang.String"/>
+	<field name="recipe_dinners" class="java.lang.String"/>
+	<field name="recipe_difficulty" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="33" width="410" height="46" uuid="753c7bb6-7bc8-4c23-aaae-263b6713ad34"/>
+				<textElement textAlignment="Left">
+					<font fontName="JetBrainsMonoNL NFM" size="32" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recipe_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="33" width="220" height="20" uuid="eb3c658c-dfbb-4a8c-9a85-496582438cbe"/>
+				<textElement textAlignment="Left">
+					<font fontName="JetBrainsMono NF" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recipe_creator}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="110" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="5" backcolor="#030303" uuid="d874e8ad-0ebf-4609-9be9-6721d174d7aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="40" width="330" height="70" uuid="e67a32df-a3b9-4000-9548-cb5ac52b092c"/>
+				<textFieldExpression><![CDATA[$F{recipe_description}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="99" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="10" width="595" height="89" forecolor="#D9D9D9" backcolor="#D9D9D9" uuid="98fe8c5d-609f-4567-a961-c33a852be893"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="20" width="140" height="39" uuid="21b7f8fc-6dec-4703-aa94-7fe24788b01d"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="0.0"/>
+				</textElement>
+				<text><![CDATA[Preparation Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="20" width="140" height="39" uuid="b6d5ad04-8abf-43e9-be5f-900f503b23a9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dinners]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="20" width="140" height="39" uuid="dae898f8-3174-40c7-8baa-b97f52879af3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Difficulty]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="50" width="140" height="30" uuid="8401f8e3-de77-4b71-98d1-76662ad0e016"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recipe_preparation_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="50" width="140" height="30" uuid="a9199d9f-3b8c-4729-a879-c2bf42458826"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recipe_dinners}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="50" width="140" height="30" uuid="a1b3f100-40dd-4bd9-af6e-d0f4582f52f3"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recipe_difficulty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

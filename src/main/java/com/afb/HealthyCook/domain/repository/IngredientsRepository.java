@@ -14,16 +14,8 @@ public interface IngredientsRepository extends JpaRepository<Ingredients, Intege
 
     @Query(value = "SELECT i.recipe.id FROM Ingredients i WHERE i.ingredient LIKE (?1) GROUP BY i.recipe.id")
     List<Integer> getRecipesIdByIngredients(List<String> ingredient) throws Exception;
-/*
-    /*SELECT DISTINCT c.Name
 
-    FROM Sales.Store c
+    @Query(value = "SELECT i FROM Ingredients i WHERE i.recipe.id = ?1")
+    List<Ingredients> findByRecipeId(Integer recipeId);
 
-    WHERE EXISTS (SELECT 1
-
-    FROM (VALUES ('% sports %'),('% exercise %'),('%toy%')) l(c)
-
-    WHERE c.Name LIKE l.c
-
- )*/
 }

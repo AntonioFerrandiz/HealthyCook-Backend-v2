@@ -8,14 +8,18 @@ import com.afb.HealthyCook.domain.model.*;
 import com.afb.HealthyCook.domain.repository.*;
 import com.afb.HealthyCook.service.RecipeService;
 import com.afb.HealthyCook.shared.exception.ResourceNotFoundException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -144,6 +148,49 @@ public class RecipeServiceImpl implements RecipeService {
     public List<GetRecipeResource> findRecipesByDifficulty(String difficulty) throws Exception {
         List<Recipe> recipeList = this.recipeRepository.findRecipesByDifficulty(difficulty);
         return GetRecipeResource.convert(recipeList);
+    }
+
+    @Override
+    public byte[] getRecipePDF(Integer id) throws FileNotFoundException, JRException {
+        try{
+            Optional<Recipe> optionalRecipe = this.recipeRepository.findById(id);
+            if(!optionalRecipe.isPresent()) {
+                throw new Exception("No existe receta con ID: " + id);
+            }
+
+            Recipe recipe = optionalRecipe.get();
+            List<RecipeSteps> recipeStepsList = this.recipeStepsRepository.findByRecipeId(id);
+            List<Ingredients> ingredientsList = this.ingredientsRepository.findByRecipeId(id);
+
+            List<Map<String, Object>> reportBody = new ArrayList<>();
+            Map<String, Object> recipeMap = new HashMap<>();
+
+            recipeMap.put("recipe_creator", recipe.getUser().getUsername());
+            recipeMap.put("recipe_name", recipe.getRecipeName());
+            recipeMap.put("recipe_description", recipe.getRecipeDescription());
+            recipeMap.put("recipe_preparation_time", recipe.getPreparationTime().toString());
+            recipeMap.put("recipe_dinners", recipe.getDiners().toString());
+            recipeMap.put("recipe_difficulty", recipe.getRecipeDifficulty().getDifficulty());
+
+            reportBody.add(recipeMap);
+
+            File file = ResourceUtils.getFile("classpath:reports/jrxml/recipe.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+            JRBeanCollectionDataSource detail = new JRBeanCollectionDataSource(reportBody);
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("CreatedBy", "AntonioFerrandiz");
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,detail);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+
+            return outputStream.toByteArray();
+        } catch (Exception e){
+            logger.error("Error al generar el PDF: " + e.getMessage(), e.getCause());
+        }
+        return  new byte[0];
     }
 
 }
